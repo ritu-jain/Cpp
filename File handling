@@ -1,0 +1,232 @@
+#include<stdio.h>
+struct employee
+{
+	int id;
+	char name[30];
+	char dep[30];
+	char gender[2];
+}emp;
+void insert()                          //Insert function
+{
+	FILE *fp;
+	fp=fopen("rec","a");
+	printf("Enter id:");
+	scanf("%d",&emp.id);
+	printf("\nEnter name:");
+	scanf("%s",emp.name);
+	printf("\nEnter department:");
+	scanf("%s",emp.dep);
+	printf("\nEnter gender:");
+	scanf("%s",emp.gender);
+	fwrite(&emp,sizeof(emp),1,fp);
+	fclose(fp);
+
+}
+void modify()      			//modify function
+{
+	FILE *fp,*fp1;
+	int avl,r,s,n;
+	fp=fopen("rec","r");
+	fp1=fopen("temp","w");
+	printf("\nEnter the id you want to modify:");
+	scanf("%d",&r);
+
+
+	while(fread(&emp,sizeof(emp),1,fp))
+	{
+	s=emp.id;
+	if(s!=r)
+	{
+		//printf("\nRecord not found");
+		fwrite(&emp,sizeof(emp),1,fp1);
+	}
+	else
+	{
+		printf("\nSelect from the options:");
+		printf("\n1.Modify name.\n2.Modify department\n3.Modify gender");
+		printf("\nEnter your choice:");
+		scanf("%d",&n);
+		switch(n)
+		{
+			case 1:
+			printf("\nEnter new name:");
+			scanf("%s",emp.name);
+			break;
+			case 2:
+			printf("\nEnter new department:");
+			scanf("%s",emp.dep);
+			break;
+			case 3:
+			printf("\nEnter gender:(m/f)");
+			scanf("%s",emp.gender);
+			break;
+			default:printf("\nEnter correct choice:");
+			break;
+
+		}
+		fwrite(&emp,sizeof(emp),1,fp1);
+
+
+	}
+
+
+	}
+
+	fclose(fp);
+	fclose(fp1);
+	fp=fopen("rec","w");
+	fp1=fopen("temp","r");
+	while(fread(&emp,sizeof(emp),1,fp1))
+	{
+		fwrite(&emp,sizeof(emp),1,fp);
+	}
+	fclose(fp);
+	fclose(fp1);
+}
+void del()                                            //delete function
+{
+	FILE *fp,*fp1;
+	int i,s;
+	printf("\nEnter the id you want to delete:");
+	scanf("%d",&i);
+	fp=fopen("rec","r");
+	fp1=fopen("temp","w");
+	while(fread(&emp,sizeof(emp),1,fp))
+	{
+		s=emp.id;
+		if(s!=i)
+			fwrite(&emp,sizeof(emp),1,fp1);
+
+	}
+	printf("\nRecord deleted");
+	fclose(fp);
+	fclose(fp1);
+	fp=fopen("rec","w");
+	fp1=fopen("temp","r");
+	while(fread(&emp,sizeof(emp),1,fp1))
+	{
+		fwrite(&emp,sizeof(emp),1,fp);
+	}
+	fclose(fp);
+	fclose(fp1);
+}
+void disp()
+{                                                    //display function
+	FILE *fp;
+	int i,a,f=0,m=0;
+	fp=fopen("rec","r");
+	printf("\nEnter what you want to list:\n1.ID\n2.Departments.\n3.Gender(m/f)\n4.Press 0 to exit.") ;
+	scanf("\n%d",&i);
+	printf("\nId: \tNAME: \tDepartment: \tGender: \n") ;
+	switch(i)
+	{
+		case 1:
+	    //	printf("\nDisplaying all the details\n");
+		while(fread(&emp,sizeof(emp),1,fp))
+		{
+			printf("\n%d\t%s\t%s\t: %s\n",emp.id,emp.name,emp.dep,emp.gender) ;
+		}
+		break;
+		case 2 :
+		printf("\nDisplaying all departments\n");
+			while(fread(&emp,sizeof(emp),1,fp))
+		{
+			printf("%s\n",emp.dep) ;
+		}
+		break;
+		case 3:
+		printf("\nDisplaying total Male and Female\n");
+		while(fread(&emp,sizeof(emp),1,fp))
+		{
+			if(emp.gender=="m")
+			m++;
+			else
+			f++;
+
+
+		}
+		printf("\nNo. of males:%d",m);
+		printf("\nNo. of females:%d",f);
+		break;
+		default:printf("\nWrong choice");
+
+	}
+
+}
+void search()
+{
+	FILE *fp;
+	int a,i,s;
+	char n[30];
+	fp=fopen("rec","r");
+	printf("\nSelect the search category\n1.ID wise\n2.Name wise\n3.Press 0 to exit\n");
+	scanf("%d",&a);
+		printf("Enter ID you want to search.:");
+		scanf("%d",&i);
+		printf("\t ID\tNAME \tDEPARTMENT: \tGENDER: \n");
+	switch(a)
+	{
+		case 1:
+
+
+		while(fread(&emp,sizeof(emp),1,fp))
+		{
+			s=emp.id;
+			if(s==i)
+		       //	printf("No record found");
+		       //	else
+			printf("\n\t %d\t %s\t %s\t %s\n",emp.id,emp.name,emp.dep,emp.gender);
+		}
+		break;
+		case 2:
+		printf("Enter Name you want to search.:");
+		scanf("%s",n);
+		printf("\n\tID: \tNAME: \tDEPARTMENT: \tGENDER: \n");
+		while(fread(&emp,sizeof(emp),1,fp))
+		{
+			s=strcmp(emp.name,n);
+			if(s==0)
+			printf("\n\t %d\t %s\t %s\t%s \n",emp.id,emp.name,emp.dep,emp.gender);
+		       //	else
+		       //	printf("No record found");
+		}
+
+	}
+}
+void main()
+{
+	int c;
+	clrscr();
+	do{
+		printf("\n\t--select your choice--\n");
+		printf("\n\t1. Insert \n\t2.display\n\t3.search\n\t4.delete\n\t5.update\n\t6.exit");
+		printf("\n\n-----------------------------------\n");
+		printf("\nenter your choice:");
+		scanf("%d",&c);
+		printf("\n");
+		switch(c)
+		{
+			case 1:
+			insert();
+			break;
+			case 2:
+			disp();
+			break;
+			case 3:
+			search();
+			break;
+			case 4:
+			 del();
+			break;
+			case 5:
+			modify();
+			break;
+			case 6:
+			exit(1) ;
+			break;
+			default:printf("\n Your choice is wrong \n Please try again..\n");
+			break;
+
+		}
+	}while(c!=6);
+}
