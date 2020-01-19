@@ -1,0 +1,30 @@
+#include<iostream.h>
+#include<conio.h>
+void search(int[3][3],int);
+void main()
+{
+	int arr[3][3];
+	int i,j;
+	clrscr();
+	cout<<"Enter array elements: " ;
+
+	for(i=0;i<3;i++)
+		for(j=0;j<3;j++)
+			cin>>arr
+			[i][j];
+	int sub;
+	cout<<endl<<"Enter the substrig to be searched :";
+	cin>>sub;
+	search(arr,sub);
+	getch();
+
+}
+void search(int a[3][3],int n )
+{
+	for(int i=0;i<3;i++)
+		for(int j=0;j<3;j++)
+			if(a[i][j]==n)
+			{
+				cout<<endl<<"Element found at index "<<i<<j;
+			}
+}
