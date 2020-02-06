@@ -1,0 +1,39 @@
+#include <iostream>
+
+using namespace std;
+
+class b;
+class ab
+{
+    int a;
+public:
+    void put_data(int x)
+    {
+        a=x;
+    }
+    friend void avg(ab,b);
+};
+class b
+{
+    int w;
+public:
+    void put_data(int x)
+    {
+        w=x;
+    }
+    friend void avg(ab,b);
+};
+void avg (ab M,b N)
+{
+    int avg=(M.a+N.w)/2;
+    cout<<"Average is: "<<avg;
+}
+int main()
+{
+    ab obj;
+    b obj1;
+    obj.put_data(20);
+    obj1.put_data(10);
+    avg(obj,obj1);
+    return 0;
+}
