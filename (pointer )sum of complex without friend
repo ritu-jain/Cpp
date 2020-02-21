@@ -1,0 +1,47 @@
+#include <iostream>
+
+using namespace std;
+class complex
+{
+    public:
+    int a,b;
+    void putData(int a,int b)
+    {
+        this->a=a;
+        this->b=b;
+    }
+    void display()
+    {
+        cout<<endl<<a<<"+i"<<b<<endl;
+    }
+    complex sum(complex,complex);
+
+};
+complex complex::sum(complex M,complex N)
+{
+    complex T;
+    complex *p=&T;
+    int complex::*pa=&complex::a;
+    int complex::*pb=&complex::b;
+    p->*pa=M.a+N.a;
+    p->*pb=M.b+N.b;
+    return T;
+
+}
+
+int main()
+{
+    complex ob1,ob2,ob3,ob4;
+    complex *p1=&ob1;
+    complex *p2=&ob2;
+    void(complex::*pf)(int,int)=&complex::putData;
+    (p2->*pf)(3,4);
+    p1->putData(2,4);
+    p1->display();
+    p2->display();
+    ob4=ob3.sum(*p1,*p2);
+    ob4.display();
+
+
+    return 0;
+}
