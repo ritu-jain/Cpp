@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+class circle
+{
+    int r,result;
+public:
+    void getRadius(int r)
+    {
+        this->r=r;
+    }
+    void area()
+    {
+        result=3.14*r*r;
+        cout<<result<<endl;
+    }
+
+};
+class sphere : public circle
+{
+    int radius,a;
+public:
+    void getData(int rad)
+    {
+        getRadius(rad);
+        radius=rad;
+    }
+    void show()
+    {
+        a=(4/3)*3.14*radius*radius*radius;
+        cout<<a<<endl;
+    }
+
+};
+int main()
+{
+    sphere s;
+    s.getData(2);
+    s.show();
+
+    s.area();
+    return 0;
+}
