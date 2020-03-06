@@ -1,0 +1,116 @@
+#include <iostream>
+#include<conio.h>
+#include<string.h>
+#include<stdio.h>
+using namespace std;
+class class1
+{
+    int roll;
+    char name[30];
+    char email[50];
+    long no;
+public:
+
+    void getInfo(int roll, char name[],char email[],long no)
+    {
+        this->roll=roll;
+        strcpy(this->name,name);
+        strcpy(this->email,email);
+        this->no=no;
+    }
+    void display()
+    {
+        cout<<endl;
+        cout<<"Roll No.: "<<roll<<endl;
+        cout<<"Name: "<<name<<endl;
+        cout<<"email: "<<email<<endl;
+        cout<<"Contact No.: "<<no<<endl;
+    }
+};
+class class2:public class1
+{
+    float m1,m2,m3,total;
+    char grade;
+public:
+
+    void getDetails(float m1,float m2,float m3)
+    {
+        this->m1=m1;
+        this->m2=m2;
+        this->m3=m3;
+    }
+    void cal();
+    void show()
+    {
+        cout<<endl<<"-------------------------";
+        cout<<endl<<"-------------------------";
+        display();
+
+        cout<<"Mark 1: "<<m1<<endl;
+        cout<<"Mark 2: "<<m2<<endl;
+        cout<<"Mark 3: "<<m3<<endl;
+
+        total=m1+m2+m3;
+        float percent=(total/300)*100;
+        if(percent>=90)
+            grade='O';
+        else if(percent>=70)
+            grade='A';
+        else if(percent>=60)
+            grade='B';
+        else if(percent>=50)
+            grade='C';
+        else if(percent>=40)
+            grade='D';
+        else
+            grade='E';
+         cout<<"Grade: "<<grade<<endl;
+        switch(grade)
+        {
+        case 'O':
+            cout<<"Scholarship:60%"<<endl;break;
+        case 'A':
+            cout<<"Scholarship:50%"<<endl;break;
+
+        case 'B':
+            cout<<"Scholarship:40%"<<endl;break;
+        case 'C':
+            cout<<"Scholarship:50%"<<endl;break;
+        default:cout<<"No scholarship."<<endl;
+        }
+    }
+
+
+
+};
+
+int main()
+{
+    class class2 s;
+    char name[30];
+    char email[50];
+    int roll;
+    long no;
+    float m1,m2,m3;
+    cout<<"Enter roll number: "<<endl;
+    cin>>roll;
+     fflush(stdin);
+    cout<<"Enter name: "<<endl;
+    cin>>name;
+    fflush(stdin);
+    cout<<"Enter email: "<<endl;
+    cin>>email;
+    cout<<"Phone No:"<<endl;
+    cin>>no;
+    cout<<"Mark1: "<<endl;
+    cin>>m1;
+    cout<<"Mark2: "<<endl;
+    cin>>m2;
+    cout<<"Marks3: "<<endl;
+    cin>>m3;
+    s.getInfo(roll,name,email,no);
+    s.getDetails(m1,m2,m3);
+
+    s.show();
+    return 0;
+}
