@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+
+template <typename T,typename U>
+class weight
+{
+public:
+
+    T kg;
+    U grams;
+    int a;
+    void getData(T x, U y,int z)
+    {
+        kg=x;
+        grams=y;
+        a=z;
+    }
+    T showKgData()
+    {
+        return kg;
+    }
+    U showGramsData()
+    {
+        return grams;
+    }
+    int getA()
+    {
+        return a;
+    }
+};
+
+int main()
+{
+    weight<int,float>obj1;
+    obj1.getData(2,0.54,4);
+    cout<<obj1.showKgData()<<"Kg "<<obj1.showGramsData()<<"g"<<endl;
+    cout<<"a="<<obj1.getA();
+    return 0;
+}
